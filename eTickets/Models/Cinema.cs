@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace eTickets.Models
 {
-    public class Cienma
+    public class Cinema
     {
         [Key]
         public int Id { get; set; }
