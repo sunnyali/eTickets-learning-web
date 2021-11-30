@@ -2,6 +2,7 @@ using eTickets.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,7 +26,11 @@ namespace eTickets
         public void ConfigureServices(IServiceCollection services)
         {
             //Adding DBContext Configuration
-            services.AddDbContext<AppDbContext>();
+            //This will how we get connected with the database
+            services.AddDbContext<AppDbContext>(
+                options =>options.UseSqlServer
+                            (Configuration.
+                            GetConnectionString("DefaultConnectionString")));
 
 
             services.AddControllersWithViews();
@@ -57,6 +62,9 @@ namespace eTickets
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //Seed Database
+            //AppDbInitializer.Seed(app);
         }
     }
 }
