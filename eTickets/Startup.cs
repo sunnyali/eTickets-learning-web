@@ -1,4 +1,5 @@
 using eTickets.Data;
+using eTickets.Data.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,10 @@ namespace eTickets
                 options =>options.UseSqlServer
                             (Configuration.
                             GetConnectionString("DefaultConnectionString")));
+
+            //Adding Services
+            //Actor Service (AddScoped) -> this will create a instance of object with in the scope
+            services.AddScoped<IActorsService, ActorService>();
 
 
             services.AddControllersWithViews();
