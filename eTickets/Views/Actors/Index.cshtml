@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<Actor>
-@{ 
+@{
     ViewData["Title"] = "List of Actors";
 }
 
@@ -17,26 +17,34 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td class="align-middle">
-                        <img class="rounded-circle" src="@item.ProfilePicURL" alt="@item.FullName" style="max-width:150px" />
-                    </td>
-                    <td class="align-middle">
-                        @Html.DisplayFor(modelitem=>item.FullName)
-                    </td>
-                    <td class="align-middle">
-                        @Html.DisplayFor(modelitem => item.Bio)
-                    </td>
-                    <td class="align-middle">
-                        <a class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i>Edit</a>|
-                        <a class="btn btn-outline-info"><i class="bi bi-eye"></i>Detail</a>|
-                        <a class="btn btn-danger text-white"><i class="bi bi-trash"></i>Delete</a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td class="align-middle">
+                            <img class="rounded-circle" src="@item.ProfilePicURL" alt="@item.FullName" style="max-width:150px" />
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelitem => item.FullName)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelitem => item.Bio)
+                        </td>
+                        <td class="align-middle">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i>Edit</a>|
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info"><i class="bi bi-eye"></i>Detail</a>|
+                            <a asp-controller="Actors" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger text-white" onclick="return confirm('Are you sure you want to delete this?')"><i class="bi bi-trash"></i>Delete</a>
+
+                        </td>
+                    </tr>
 
                 }
             </tbody>
         </table>
+
     </div>
 
 </div>
+
+
+@await Html.PartialAsync("_CreateItem", "Actors")
+
+
+

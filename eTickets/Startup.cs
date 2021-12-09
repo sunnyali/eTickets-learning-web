@@ -34,9 +34,11 @@ namespace eTickets
                             GetConnectionString("DefaultConnectionString")));
 
             //Adding Services
-            //Actor Service (AddScoped) -> this will create a instance of object with in the scope
+            //Actor Service (AddScoped) ->  Services are created on each request (once per request).
             services.AddScoped<IActorsService, ActorService>();
-
+            services.AddScoped<ICinemaService, CinemaService>();
+            services.AddScoped<IProducerService, ProducerService>();
+            services.AddScoped<IMovieService, MovieService>();
 
             services.AddControllersWithViews();
         }
@@ -69,7 +71,7 @@ namespace eTickets
             });
 
             //Seed Database
-            //AppDbInitializer.Seed(app);
+            AppDbInitializer.Seed(app);
         }
     }
 }
